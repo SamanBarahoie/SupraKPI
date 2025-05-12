@@ -8,7 +8,7 @@ services:
       - "8123:8123"   # HTTP interface
       - "9000:9000"   # Native TCP interface
     volumes:
-      - ./clickhouse:/etc/clickhouse-server/
+      - ./clickhouse-config:/etc/clickhouse-server
       - clickhouse_data:/var/lib/clickhouse
 
   superset:
@@ -22,7 +22,9 @@ services:
       - clickhouse
 
   sales_data_gen:
-    build: ./scripts
+    build:
+      context: .
+      dockerfile: scripts/Dockerfile
     container_name: sales_data_gen
     volumes:
       - ./data:/app/data
