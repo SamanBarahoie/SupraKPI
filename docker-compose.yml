@@ -5,8 +5,8 @@ services:
     image: clickhouse/clickhouse-server:latest
     container_name: clickhouse
     ports:
-      - "8123:8123"
-      - "9000:9000"
+      - "8123:8123"   # HTTP interface
+      - "9000:9000"   # Native TCP interface
     volumes:
       - ./clickhouse:/etc/clickhouse-server/
       - clickhouse_data:/var/lib/clickhouse
@@ -18,6 +18,14 @@ services:
       - "8088:8088"
     environment:
       - SUPERSET_SECRET_KEY=supersecretkey
+    depends_on:
+      - clickhouse
+
+  sales_data_gen:
+    build: ./scripts
+    container_name: sales_data_gen
+    volumes:
+      - ./data:/app/data
     depends_on:
       - clickhouse
 
