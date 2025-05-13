@@ -123,7 +123,7 @@ In Superset UI:
    * **SQLAlchemy URI**:
 
      ```text
-     clickhouse+native://default:@clickhouse:9000/default
+     clickhouse+http://default:@clickhouse:8123/default
      ```
 3. Click **Test Connection**, then **Save**.
 
