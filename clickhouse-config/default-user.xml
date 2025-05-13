@@ -1,0 +1,11 @@
+<yandex>
+  <users>
+    <default>
+      <networks>
+        <ip>::/0</ip>
+      </networks>
+      <!-- ست کردن پس‌ورد خالی -->
+      <password></password>
+    </default>
+  </users>
+</yandex>
