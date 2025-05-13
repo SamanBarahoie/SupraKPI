@@ -22,10 +22,10 @@ The dataset includes columns like:
 
 ### 1. Generate and Load Data into ClickHouse
 
-Run the Python script:
+Run the docker compose:
 
 ```bash
-python generate_sales_data.py
+docker compose up --build  
 ````
 
 This script will generate fake data and insert it into a `sales` table inside ClickHouse at:
