@@ -72,6 +72,62 @@ clickhouse+native://default:@clickhouse:9000/default
 * Light Background: `#F8F9FA`
 
 ---
+## 📈 Access Superset
+
+
+
+### 🔧 First-Time Superset Setup
+
+If this is your first time using Superset, follow these steps:
+
+#### 1. Enter the Superset container
+
+```bash
+docker exec -it superset bash
+```
+
+#### 2. Migrate and Initialize Superset DB
+
+```bash
+superset db upgrade
+superset init
+```
+
+#### 3. Create an Admin User
+
+```bash
+superset fab create-admin \
+  --username admin \
+  --firstname Admin \
+  --lastname User \
+  --email admin@example.com \
+  --password your_admin_password
+```
+
+Then exit the container:
+
+```bash
+exit
+```
+
+---
+
+## 🔌 Connect ClickHouse to Superset
+
+In Superset UI:
+
+1. Go to **Data > Databases > + Database**
+2. Fill in:
+
+   * **Display Name**: ClickHouse
+   * **SQLAlchemy URI**:
+
+     ```text
+     clickhouse+native://default:@clickhouse:9000/default
+     ```
+3. Click **Test Connection**, then **Save**.
+
+---
 
 ## 🔗 View Your Dashboard
 ![dash](./images/dash.png)
