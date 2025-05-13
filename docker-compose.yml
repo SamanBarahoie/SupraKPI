@@ -8,8 +8,14 @@ services:
       - "8123:8123"   # HTTP interface
       - "9000:9000"   # Native TCP interface
     volumes:
-      - ./clickhouse-config:/etc/clickhouse-server
       - clickhouse_data:/var/lib/clickhouse
+      - ./clickhouse-config/config.xml:/etc/clickhouse-server/config.xml:ro
+      - ./clickhouse-config/users.xml:/etc/clickhouse-server/users.xml:ro
+      - ./clickhouse-config/default-user.xml:/etc/clickhouse-server/users.d/default-user.xml:ro
+      - ./data:/var/lib/clickhouse/user_files/data:ro
+    restart: unless-stopped
+    networks:
+      - default_net
 
   superset:
     build: ./superset
@@ -20,6 +26,8 @@ services:
       - SUPERSET_SECRET_KEY=supersecretkey
     depends_on:
       - clickhouse
+    networks:
+      - default_net
 
   sales_data_gen:
     build:
@@ -30,7 +38,12 @@ services:
       - ./data:/app/data
     depends_on:
       - clickhouse
+    networks:
+      - default_net
 
 volumes:
   clickhouse_data:
 
+networks:
+  default_net:
+    driver: bridge
